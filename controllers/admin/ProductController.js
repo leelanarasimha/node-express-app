@@ -1,4 +1,4 @@
-const { addProduct } = require('../../utils/products');
+const { saveProduct } = require('../../models/Product');
 
 exports.getAddProductPage = (req, res) => {
   const viewsData = {
@@ -11,6 +11,6 @@ exports.postAddProductPage = (req, res) => {
   const product = {
     title: req.body.title
   };
-  addProduct(product);
+  saveProduct(product);
   res.redirect('/');
 };
