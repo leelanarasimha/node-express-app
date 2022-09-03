@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= pageTitle %></title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+  </head>
+  <body>
+    <header>E-Commerce Website</header>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/products/add">Add Product</a></li>
+      </ul>
+    </nav>
+    <main>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Add Product</h2>
+            <form method="POST" action="/products/add">
+              <p>
+                <label for="title">Title</label>
+                <input type="text" class="form-control" name="title" />
+              </p>
+              <p>
+                <button>Add Product</button>
+              </p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
