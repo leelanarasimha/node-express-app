@@ -9,6 +9,7 @@ exports.getAddProductPage = (req, res) => {
 
 exports.postAddProductPage = (req, res) => {
   const product = {
+    id: Date.now(),
     title: req.body.title,
     image: req.body.image,
     price: req.body.price,

@@ -1,4 +1,4 @@
-const { fetchAllProducts } = require('../models/Product');
+const { fetchAllProducts, getProductById } = require('../models/Product');
 
 exports.getHomePage = (req, res) => {
   fetchAllProducts((products) => {
@@ -7,5 +7,16 @@ exports.getHomePage = (req, res) => {
       pageTitle: 'Home Page - Products List'
     };
     res.render('homepage', viewsData);
+  });
+};
+
+exports.getProductDetailsPage = (req, res) => {
+  const productId = req.params.productId;
+  getProductById(productId, (product) => {
+    const viewsData = {
+      product,
+      pageTitle: product.title
+    };
+    res.render('ProductDetails', viewsData);
   });
 };

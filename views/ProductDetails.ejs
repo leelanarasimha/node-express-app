@@ -1,0 +1,24 @@
+<%- include('includes/head.ejs') %>
+  </head>
+  <body>
+    <%- include('includes/navigation.ejs') %>
+    <main>
+      <div class="container">
+        <div class="row">
+            <div class="col-md-6 offset-md-3 text-center">
+                <h3><%= product.title %></h3>
+                <div>
+                    <img src="<%= product.image %>" class="img-fluid"/>
+                </div>
+                <div>Price: <strong>$<%= product.price %></strong></div>
+                <p><%= product.description %></p>
+
+                <div class="my-2">
+                    <button class="btn btn-primary">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+      </div>
+      
+    </main>
+    <%- include('includes/footer.ejs') %>
