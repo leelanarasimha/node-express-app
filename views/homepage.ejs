@@ -8,9 +8,23 @@
           <div class="col-md-12">
             <h1>Products List</h1>
 
-            <% if (products.length) { %> <% for(let product of products) { %>
-            <h3><%= product.title %></h3>
-            <% } %> <% } else { %>
+            <% if (products.length) { %>
+              <div class="row">
+                <% for(let product of products) { %>
+                  <div class="col-md-3">
+                    <div class="product">
+                      <div class="text-center">
+                        <img src="<%= product.image%>" class="img-fluid"/>
+                      </div>
+                      <h3><%= product.title %></h3>
+                      <div>Price: <strong>$<%= product.price %></strong></div>
+                      <p><%= product.description %></p>
+                    </div>
+                  </div>
+                  
+                <% } %>
+              </div>
+            <% } else { %>
             <div>No Products Available</div>
             <% } %>
           </div>

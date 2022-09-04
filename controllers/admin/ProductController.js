@@ -9,7 +9,10 @@ exports.getAddProductPage = (req, res) => {
 
 exports.postAddProductPage = (req, res) => {
   const product = {
-    title: req.body.title
+    title: req.body.title,
+    image: req.body.image,
+    price: req.body.price,
+    description: req.body.description
   };
   saveProduct(product);
   res.redirect('/');
