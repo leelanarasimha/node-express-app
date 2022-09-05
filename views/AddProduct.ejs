@@ -8,26 +8,26 @@
       <div class="container">
         <div class="row">
           <div class="col-md-12">
-            <h2>Add Product</h2>
+            <h2><%= edit ? 'Edit Product' : 'Add Product' %></h2>
             <form method="POST" action="/products/add">
               <p>
                 <label for="title">Title</label>
-                <input type="text" class="form-control" name="title" />
+                <input type="text" class="form-control" name="title" value="<%= edit ? product.title : '' %>" />
               </p>
               <p>
                 <label for="image">Image Url</label>
-                <input type="text" class="form-control" name="image" />
+                <input type="text" class="form-control" name="image" value="<%= edit ? product.image : '' %>" />
               </p>
               <p>
                 <label for="price">Price</label>
-                <input type="number" step="any" class="form-control" name="price" />
+                <input type="number" step="any" class="form-control" name="price" value="<%= edit ? product.price : '' %>" />
               </p>
               <p>
                 <label for="description">Description</label>
-                <textarea name="description" id="description" class="form-control"></textarea>
+                <textarea name="description" id="description" class="form-control"><%= edit ? product.description : '' %></textarea>
               </p>
               <p>
-                <button>Add Product</button>
+                <button><%= edit ? 'Edit Product' : 'Add Product' %></button>
               </p>
             </form>
           </div>
