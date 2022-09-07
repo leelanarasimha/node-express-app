@@ -22,7 +22,11 @@
                       <% if (admin) { %>
                         <div class="my-2 text-center d-flex justify-content-center">
                           <a href="/products/edit/<%= product.id %>" class="btn btn-primary mx-2">Edit</a>
-                          <a href="/product/details/<%= product.id %>" class="btn btn-primary mx-2">Delete</a>
+                          <form action="/products/delete" method="post">
+                            <input type="hidden" name="productId" value="<%= product.id %>">
+                            <button class="btn btn-danger">Delete</button>
+                          </form>
+                          
                           
                         </div>
                       <% } else {%>
