@@ -34,3 +34,16 @@ exports.getProductById = (productId, callBack) => {
     callBack(product);
   });
 };
+
+exports.updateProductById = (product, productId) => {
+  const productsPath = path.join(rootDir, 'data', 'products.json');
+  getProductsFromFile((products) => {
+    const existingProductIndex = products.findIndex((prod) => prod.id.toString() === productId);
+
+    const updatedProducts = [...products];
+    updatedProducts[existingProductIndex] = product;
+    fs.writeFile(productsPath, JSON.stringify(updatedProducts), (error) => {
+      console.log(error);
+    });
+  });
+};
