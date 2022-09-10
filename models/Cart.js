@@ -38,7 +38,7 @@ exports.addProductToCart = (productId, productPrice) => {
   });
 };
 
-exports.deleteProductFromCart = (productId) => {
+exports.deleteProductFromCart = (productId, callBack = '') => {
   const cartPath = path.join(rootDir, 'data', 'cart.json');
   this.getCartDetailsFromFile((cart) => {
     let cartProducts = cart.products;
@@ -47,5 +47,8 @@ exports.deleteProductFromCart = (productId) => {
     fs.writeFile(cartPath, JSON.stringify({ products: updatedCartProducts }), (error) => {
       console.log(error);
     });
+    if (callBack) {
+      callBack();
+    }
   });
 };

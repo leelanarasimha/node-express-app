@@ -1,4 +1,4 @@
-const { addProductToCart, getCartDetailsFromFile } = require('../models/Cart');
+const { addProductToCart, getCartDetailsFromFile, deleteProductFromCart } = require('../models/Cart');
 const { getProductById, fetchAllProducts } = require('../models/Product');
 
 exports.postCartPage = (req, res) => {
@@ -30,5 +30,12 @@ exports.getCartPage = (req, res) => {
 
       res.render('cartDetails', viewsData);
     });
+  });
+};
+
+exports.deleteCartItem = (req, res) => {
+  const productId = req.body.productId;
+  deleteProductFromCart(productId, () => {
+    res.redirect('/cart');
   });
 };

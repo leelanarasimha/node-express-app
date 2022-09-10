@@ -17,6 +17,7 @@
                             <div>Quantity</div>
                             <div>Price per Product</div>
                             <div>Total Price</div>
+                            <div>Actions</div>
                         </div>
                         <% for(let product of cartProducts) { %>
                         <div class="cart-product d-flex">
@@ -24,6 +25,12 @@
                             <div><%= product.quantity %></div>
                             <div>$<%= product.price %></div>
                             <div>$<%= product.cartPrice %></div>
+                            <div>
+                                <form action="/cart/delete-item" method="post">
+                                    <input type="hidden" name="productId" value="<%= product.id %>">
+                                    <button class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
                         </div>
                         <% } %>
                         <div class="text-end">
