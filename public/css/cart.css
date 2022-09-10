@@ -1,0 +1,13 @@
+.cart-title > div {
+  font-weight: bold;
+  flex: 1;
+  border-bottom: 1px solid;
+  padding: 10px 0px;
+}
+
+.cart-product > div {
+  flex: 1;
+  text-align: right;
+  border-bottom: 1px solid;
+  padding: 10px 0px;
+}
