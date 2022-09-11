@@ -16,14 +16,18 @@ exports.getAddProductPage = (req, res) => {
 
 exports.postAddProductPage = (req, res) => {
   const product = {
-    id: Date.now(),
     title: req.body.title,
-    image: req.body.image,
+    imageUrl: req.body.image,
     price: req.body.price,
     description: req.body.description
   };
-  saveProduct(product);
-  res.redirect('/');
+  saveProduct(product)
+    .then(() => {
+      res.redirect('/');
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 exports.getAdminProductsPage = (req, res) => {
