@@ -1,14 +1,18 @@
 const { fetchAllProducts, getProductById } = require('../models/Product');
 
 exports.getHomePage = (req, res) => {
-  fetchAllProducts((products) => {
-    const viewsData = {
-      admin: false,
-      products,
-      pageTitle: 'Home Page - Products List'
-    };
-    res.render('product-list', viewsData);
-  });
+  fetchAllProducts()
+    .then(([products]) => {
+      const viewsData = {
+        admin: false,
+        products,
+        pageTitle: 'Home Page - Products List'
+      };
+      res.render('product-list', viewsData);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 exports.getProductDetailsPage = (req, res) => {

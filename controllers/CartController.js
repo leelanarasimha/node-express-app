@@ -12,24 +12,28 @@ exports.postCartPage = (req, res) => {
 exports.getCartPage = (req, res) => {
   getCartDetailsFromFile((cart) => {
     const cartProducts = cart.products;
-    fetchAllProducts((products) => {
-      const productsData = [];
-      let totalPrice = 0;
-      for (let cartItem of cartProducts) {
-        let singleProduct = products.find((prod) => prod.id.toString() === cartItem.id.toString());
-        cartProductPrice = +cartItem.quantity * +singleProduct.price;
-        totalPrice += cartProductPrice;
-        productsData.push({ ...singleProduct, quantity: cartItem.quantity, cartPrice: cartProductPrice });
-      }
+    fetchAllProducts()
+      .then(([products]) => {
+        const productsData = [];
+        let totalPrice = 0;
+        for (let cartItem of cartProducts) {
+          let singleProduct = products.find((prod) => prod.id.toString() === cartItem.id.toString());
+          cartProductPrice = +cartItem.quantity * +singleProduct.price;
+          totalPrice += cartProductPrice;
+          productsData.push({ ...singleProduct, quantity: cartItem.quantity, cartPrice: cartProductPrice });
+        }
 
-      const viewsData = {
-        pageTitle: 'Cart Details',
-        cartProducts: productsData,
-        totalPrice
-      };
+        const viewsData = {
+          pageTitle: 'Cart Details',
+          cartProducts: productsData,
+          totalPrice
+        };
 
-      res.render('cartDetails', viewsData);
-    });
+        res.render('cartDetails', viewsData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   });
 };
 

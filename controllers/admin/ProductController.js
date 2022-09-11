@@ -27,14 +27,18 @@ exports.postAddProductPage = (req, res) => {
 };
 
 exports.getAdminProductsPage = (req, res) => {
-  fetchAllProducts((products) => {
-    const viewsData = {
-      admin: true,
-      pageTitle: 'Admin Products',
-      products
-    };
-    res.render('product-list', viewsData);
-  });
+  fetchAllProducts()
+    .then(([products]) => {
+      const viewsData = {
+        admin: true,
+        pageTitle: 'Admin Products',
+        products
+      };
+      res.render('product-list', viewsData);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 exports.getEditProductPage = (req, res) => {

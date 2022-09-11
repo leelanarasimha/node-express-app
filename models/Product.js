@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const rootDir = require('../utils/path');
+const db = require('../utils/database');
 const { deleteProductFromCart } = require('./Cart');
 
 const getProductsFromFile = (callBack) => {
@@ -25,8 +26,8 @@ exports.saveProduct = (product) => {
   });
 };
 
-exports.fetchAllProducts = (callBack) => {
-  getProductsFromFile(callBack);
+exports.fetchAllProducts = () => {
+  return db.execute(`SELECT * FROM products`);
 };
 
 exports.getProductById = (productId, callBack) => {
