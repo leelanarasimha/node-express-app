@@ -5,11 +5,20 @@ const rootDir = require('./utils/path');
 
 const adminRoutes = require('./routes/admin');
 const homeRoutes = require('./routes/home');
+const db = require('./utils/database');
 
 const app = express();
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
+
+db.execute(`select * from products`)
+  .then(([data, fields]) => {
+    console.log(data);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
 
 //Static files
 app.use(express.static(path.join(rootDir, 'public')));
