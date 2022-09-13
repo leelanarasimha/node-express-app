@@ -5,6 +5,7 @@ const rootDir = require('./utils/path');
 
 const adminRoutes = require('./routes/admin');
 const homeRoutes = require('./routes/home');
+const sequelize = require('./utils/database');
 
 const app = express();
 
@@ -25,6 +26,16 @@ app.use((req, res) => {
   };
   res.status(404).render('404', viewsData);
 });
+
+sequelize
+  .authenticate()
+  .then(() => {
+    console.log('connection established successfully');
+  })
+  .catch((error) => {
+    console.log(error);
+    console.log('Error in establishing connection');
+  });
 
 app.listen(3000, () => {
   console.log('server started at port 3000');
