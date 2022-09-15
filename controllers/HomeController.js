@@ -1,8 +1,9 @@
 const { fetchAllProducts, getProductById } = require('../models/Product');
+const Product = require('../models/ProductModel');
 
 exports.getHomePage = (req, res) => {
-  fetchAllProducts()
-    .then(([products]) => {
+  Product.findAll()
+    .then((products) => {
       const viewsData = {
         admin: false,
         products,
@@ -17,8 +18,9 @@ exports.getHomePage = (req, res) => {
 
 exports.getProductDetailsPage = (req, res) => {
   const productId = req.params.productId;
-  getProductById(productId)
-    .then(([product]) => {
+
+  Product.findAll({ where: { id: productId } })
+    .then((product) => {
       const viewsData = {
         product: product[0],
         pageTitle: product[0].title

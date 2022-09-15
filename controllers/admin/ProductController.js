@@ -41,8 +41,8 @@ exports.postAddProductPage = (req, res) => {
 };
 
 exports.getAdminProductsPage = (req, res) => {
-  fetchAllProducts()
-    .then(([products]) => {
+  Product.findAll()
+    .then((products) => {
       const viewsData = {
         admin: true,
         pageTitle: 'Admin Products',
