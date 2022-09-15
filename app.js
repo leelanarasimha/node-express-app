@@ -37,21 +37,6 @@ sequelize
     console.log(error);
   });
 
-const sampleProduct = {
-  title: 'sample product 1',
-  description: 'sample product 1',
-  price: 13.99,
-  imageUrl: 'dasdasd'
-};
-
-Product.create(sampleProduct)
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-
 app.listen(3000, () => {
   console.log('server started at port 3000');
 });

@@ -1,10 +1,10 @@
 const {
-  saveProduct,
   fetchAllProducts,
   getProductById,
   updateProductById,
   deleteProductById
 } = require('../../models/Product');
+const Product = require('../../models/ProductModel');
 
 exports.getAddProductPage = (req, res) => {
   const viewsData = {
@@ -21,13 +21,23 @@ exports.postAddProductPage = (req, res) => {
     price: req.body.price,
     description: req.body.description
   };
-  saveProduct(product)
+
+  const productObj = Product.build(product);
+  productObj
+    .save()
     .then(() => {
       res.redirect('/');
     })
     .catch((error) => {
       console.log(error);
     });
+  // Product.create(product)
+  //   .then(() => {
+  //     res.redirect('/');
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //   });
 };
 
 exports.getAdminProductsPage = (req, res) => {
