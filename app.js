@@ -6,7 +6,7 @@ const rootDir = require('./utils/path');
 const adminRoutes = require('./routes/admin');
 const homeRoutes = require('./routes/home');
 const sequelize = require('./utils/database');
-const product = require('./models/ProductModel');
+const Product = require('./models/ProductModel');
 
 const app = express();
 
@@ -31,11 +31,27 @@ app.use((req, res) => {
 sequelize
   .sync()
   .then((result) => {
+    // console.log(result);
+  })
+  .catch((error) => {
+    console.log(error);
+  });
+
+const sampleProduct = {
+  title: 'sample product 1',
+  description: 'sample product 1',
+  price: 13.99,
+  imageUrl: 'dasdasd'
+};
+
+Product.create(sampleProduct)
+  .then((result) => {
     console.log(result);
   })
   .catch((error) => {
     console.log(error);
   });
+
 app.listen(3000, () => {
   console.log('server started at port 3000');
 });
