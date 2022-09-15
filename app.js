@@ -6,6 +6,7 @@ const rootDir = require('./utils/path');
 const adminRoutes = require('./routes/admin');
 const homeRoutes = require('./routes/home');
 const sequelize = require('./utils/database');
+const product = require('./models/ProductModel');
 
 const app = express();
 
@@ -28,15 +29,13 @@ app.use((req, res) => {
 });
 
 sequelize
-  .authenticate()
-  .then(() => {
-    console.log('connection established successfully');
+  .sync()
+  .then((result) => {
+    console.log(result);
   })
   .catch((error) => {
     console.log(error);
-    console.log('Error in establishing connection');
   });
-
 app.listen(3000, () => {
   console.log('server started at port 3000');
 });
