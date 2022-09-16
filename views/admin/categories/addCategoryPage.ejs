@@ -11,14 +11,14 @@
                 <div class="col-md-12">
                     <h1>Add Category</h1>
 
-                    <form action="/categories/add">
+                    <form action="/categories/add" method="post">
                         <p>
                             <label for="">Title</label>
                             <input type="text" name="title" class="form-control">
                         </p>
                         <p>
                             <label for="">Description</label>
-                            <textarea class="form-control"></textarea>
+                            <textarea class="form-control" name="description"></textarea>
                         </p>
                         <p>
                             <button class="btn btn-primary">Add Category</button>

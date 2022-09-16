@@ -10,6 +10,26 @@
             <div class="row">
                 <div class="col-md-12">
                     <h1>Categories Details</h1>
+                    <div class="text-end">
+                        <a href="/categories/add" class="btn btn-primary">Add Category</a>
+                    </div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <% for(let category of categories) { %>
+                                <tr>
+                                    <td><%= category.title %></td>
+                                    <td><%= category.description %></td>
+                                </tr>
+                            <% } %>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
