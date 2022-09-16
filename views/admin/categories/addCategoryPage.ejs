@@ -1,0 +1,33 @@
+<%- include('../../includes/head.ejs') %>
+
+  </head>
+  <body>
+    <%- include('../../includes/navigation.ejs') %>
+
+    <main>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Add Category</h1>
+
+                    <form action="/categories/add">
+                        <p>
+                            <label for="">Title</label>
+                            <input type="text" name="title" class="form-control">
+                        </p>
+                        <p>
+                            <label for="">Description</label>
+                            <textarea class="form-control"></textarea>
+                        </p>
+                        <p>
+                            <button class="btn btn-primary">Add Category</button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+      
+    </main>
+    <%- include('../../includes/footer.ejs') %>
+

@@ -5,8 +5,8 @@ const rootDir = require('./utils/path');
 
 const adminRoutes = require('./routes/admin');
 const homeRoutes = require('./routes/home');
+const categoryRoutes = require('./routes/categoryRoutes');
 const sequelize = require('./utils/database');
-const Product = require('./models/ProductModel');
 
 const app = express();
 
@@ -21,6 +21,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Routes
 app.use(homeRoutes);
 app.use('/products', adminRoutes);
+app.use('/categories', categoryRoutes);
 app.use((req, res) => {
   const viewsData = {
     pageTitle: 'Page Not Found'
