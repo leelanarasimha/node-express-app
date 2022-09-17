@@ -7,6 +7,8 @@ const adminRoutes = require('./routes/admin');
 const homeRoutes = require('./routes/home');
 const categoryRoutes = require('./routes/categoryRoutes');
 const sequelize = require('./utils/database');
+const Category = require('./models/CategoryModel');
+const Product = require('./models/ProductModel');
 
 const app = express();
 
@@ -28,6 +30,9 @@ app.use((req, res) => {
   };
   res.status(404).render('404', viewsData);
 });
+
+Category.hasMany(Product);
+Product.belongsTo(Category);
 
 sequelize
   .sync()

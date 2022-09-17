@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../utils/database');
 
 const Product = sequelize.define(
-  'Product',
+  'product',
   {
     id: {
       type: DataTypes.BIGINT,
