@@ -30,6 +30,15 @@
                 <textarea name="description" id="description" class="form-control"><%= edit ? product.description : '' %></textarea>
               </p>
               <p>
+                <label for="">Select Category</label>
+                <select name="categoryId" id="" class="form-control">
+                  <option value="">Select Category</option>
+                  <% for (let category of categories) { %>
+                    <option value="<%= category.id %>"><%= category.title %></option>
+                    <% } %>
+                </select>
+              </p>
+              <p>
                 <button><%= edit ? 'Edit Product' : 'Add Product' %></button>
               </p>
             </form>

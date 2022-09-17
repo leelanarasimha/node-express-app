@@ -1,9 +1,11 @@
+const Category = require('../models/CategoryModel');
 const { fetchAllProducts, getProductById } = require('../models/Product');
 const Product = require('../models/ProductModel');
 
 exports.getHomePage = (req, res) => {
-  Product.findAll()
+  Product.findAll({ include: Category })
     .then((products) => {
+      console.log(products);
       const viewsData = {
         admin: false,
         products,

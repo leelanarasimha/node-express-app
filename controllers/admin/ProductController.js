@@ -1,14 +1,25 @@
+const Category = require('../../models/CategoryModel');
 const Product = require('../../models/ProductModel');
 
 exports.getAddProductPage = (req, res) => {
-  const viewsData = {
-    edit: false,
-    pageTitle: 'Add Product'
-  };
-  res.render('AddProduct', viewsData);
+  Category.findAll({ attributes: ['id', 'title'] })
+    .then((categories) => {
+      console.log(categories);
+      const viewsData = {
+        edit: false,
+        categories,
+        pageTitle: 'Add Product'
+      };
+      res.render('AddProduct', viewsData);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 exports.postAddProductPage = (req, res) => {
+  const categoryId = req.body.categoryId;
+
   const product = {
     title: req.body.title,
     imageUrl: req.body.image,
@@ -16,9 +27,18 @@ exports.postAddProductPage = (req, res) => {
     description: req.body.description
   };
 
-  Product.create(product)
+  let categoryObj;
+
+  Category.findByPk(categoryId)
+    .then((category) => {
+      categoryObj = category;
+      return Product.create(product);
+    })
+    .then((productObj) => {
+      return productObj.setCategory(categoryObj);
+    })
     .then(() => {
-      res.redirect('/');
+      return res.redirect('/');
     })
     .catch((error) => {
       console.log(error);

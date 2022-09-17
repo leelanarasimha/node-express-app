@@ -17,6 +17,7 @@
                         <img src="<%= product.image%>" class="img-fluid"/>
                       </div>
                       <h3><%= product.title %></h3>
+                      <div>Category: <%= product.category.title %></div>
                       <div>Price: <strong>$<%= product.price %></strong></div>
                       <p><%= product.description %></p>
                       <% if (admin) { %>
