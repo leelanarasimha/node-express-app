@@ -34,7 +34,8 @@
                 <select name="categoryId" id="" class="form-control">
                   <option value="">Select Category</option>
                   <% for (let category of categories) { %>
-                    <option value="<%= category.id %>"><%= category.title %></option>
+                    <option value="<%= category.id %>" 
+                      <%= edit && category.id === product.categoryId ? "selected" : "" %>><%= category.title %></option>
                     <% } %>
                 </select>
               </p>

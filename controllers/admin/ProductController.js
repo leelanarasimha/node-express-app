@@ -46,7 +46,7 @@ exports.postAddProductPage = (req, res) => {
 };
 
 exports.getAdminProductsPage = (req, res) => {
-  Product.findAll()
+  Product.findAll({ include: Category })
     .then((products) => {
       const viewsData = {
         admin: true,
@@ -63,13 +63,18 @@ exports.getAdminProductsPage = (req, res) => {
 exports.getEditProductPage = (req, res) => {
   const productId = req.params.productId;
 
+  let viewsData = {
+    edit: true,
+    pageTitle: 'Edit Product'
+  };
+
   Product.findByPk(productId)
     .then((product) => {
-      const viewsData = {
-        edit: true,
-        product,
-        pageTitle: 'Edit Product'
-      };
+      viewsData = { ...{ product }, ...viewsData };
+      return Category.findAll({ attributes: ['id', 'title'] });
+    })
+    .then((categories) => {
+      viewsData = { ...{ categories }, ...viewsData };
       res.render('AddProduct', viewsData);
     })
     .catch((error) => {
@@ -83,7 +88,8 @@ exports.postEditProductPage = (req, res) => {
     title: req.body.title,
     price: req.body.price,
     description: req.body.description,
-    imageUrl: req.body.image
+    imageUrl: req.body.image,
+    categoryId: req.body.categoryId
   };
   Product.update(product, { where: { id: productId } })
     .then(() => {
