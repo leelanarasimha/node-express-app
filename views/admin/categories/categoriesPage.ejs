@@ -18,6 +18,7 @@
                             <tr>
                                 <th>Title</th>
                                 <th>Description</th>
+                                <th>User Name</th>
                             </tr>
                         </thead>
 
@@ -26,6 +27,7 @@
                                 <tr>
                                     <td><%= category.title %></td>
                                     <td><%= category.description %></td>
+                                    <td><%= category.user.name %></td>
                                 </tr>
                             <% } %>
                         </tbody>

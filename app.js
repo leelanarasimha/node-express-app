@@ -9,6 +9,7 @@ const categoryRoutes = require('./routes/categoryRoutes');
 const sequelize = require('./utils/database');
 const Category = require('./models/CategoryModel');
 const Product = require('./models/ProductModel');
+const User = require('./models/UserModel');
 
 const app = express();
 
@@ -19,6 +20,14 @@ app.set('views', 'views');
 app.use(express.static(path.join(rootDir, 'public')));
 app.use('/css', express.static(path.join(rootDir, 'node_modules', 'bootstrap', 'dist', 'css')));
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use((req, res, next) => {
+  User.findByPk(1).then((user) => {
+    req.user = user;
+
+    next();
+  });
+});
 
 //Routes
 app.use(homeRoutes);
@@ -32,12 +41,23 @@ app.use((req, res) => {
 });
 
 Category.hasMany(Product);
+Category.belongsTo(User);
+
 Product.belongsTo(Category);
+Product.belongsTo(User);
+
+User.hasMany(Category);
+User.hasMany(Product);
 
 sequelize
   .sync()
   .then((result) => {
-    // console.log(result);
+    return User.findByPk(1);
+  })
+  .then((user) => {
+    if (!user) {
+      User.create({ name: 'Leela Web Dev', email: 'leela@leela.com' });
+    }
   })
   .catch((error) => {
     console.log(error);
