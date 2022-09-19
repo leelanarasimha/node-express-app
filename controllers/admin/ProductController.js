@@ -1,5 +1,6 @@
 const Category = require('../../models/CategoryModel');
 const Product = require('../../models/ProductModel');
+const User = require('../../models/UserModel');
 
 exports.getAddProductPage = (req, res) => {
   Category.findAll({ attributes: ['id', 'title'] })
@@ -32,7 +33,7 @@ exports.postAddProductPage = (req, res) => {
   Category.findByPk(categoryId)
     .then((category) => {
       categoryObj = category;
-      return Product.create(product);
+      return req.user.createProduct(product);
     })
     .then((productObj) => {
       return productObj.setCategory(categoryObj);
@@ -46,7 +47,7 @@ exports.postAddProductPage = (req, res) => {
 };
 
 exports.getAdminProductsPage = (req, res) => {
-  Product.findAll({ include: Category })
+  Product.findAll({ include: [{ model: Category }, { model: User }] })
     .then((products) => {
       const viewsData = {
         admin: true,
