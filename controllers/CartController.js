@@ -40,13 +40,17 @@ exports.getCartPage = (req, res) => {
   req.user
     .getCart()
     .then((cart) => {
-      return cart.getProducts();
+      if (cart) {
+        return cart.getProducts();
+      }
+      return null;
     })
     .then((cartProducts) => {
       let totalPrice = 0;
-
-      for (let product of cartProducts) {
-        totalPrice += +product.cartItem.quantity * +product.price;
+      if (cartProducts) {
+        for (let product of cartProducts) {
+          totalPrice += +product.cartItem.quantity * +product.price;
+        }
       }
 
       const viewsData = {

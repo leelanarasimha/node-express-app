@@ -10,7 +10,7 @@
                 <div class="col-md-12">
                     <h2>Cart Details</h2>
                     <hr/>
-
+                    <% if (cartProducts) { %>
                     <div class="cart-details">
                         <div class="cart-title d-flex text-end">
                             <div>Product Name</div>
@@ -37,6 +37,15 @@
                             <h3>TotalPrice: $<%= totalPrice %></h3>
                         </div>
                     </div>
+
+                    <div class="text-center my-3">
+                        <form action="/order" method="post">
+                            <button class="btn btn-primary">Order Now!</button>
+                        </form>
+                    </div>
+                    <% } else { %>
+                        <div>No products in the cart</div>
+                    <% } %>
                 </div>
             </div>
         </div>
