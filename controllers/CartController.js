@@ -61,7 +61,20 @@ exports.getCartPage = (req, res) => {
 
 exports.deleteCartItem = (req, res) => {
   const productId = req.body.productId;
-  deleteProductFromCart(productId, () => {
-    res.redirect('/cart');
-  });
+  let fetchedCart;
+  req.user
+    .getCart()
+    .then((cart) => {
+      fetchedCart = cart;
+      return Product.findByPk(productId);
+    })
+    .then((product) => {
+      return fetchedCart.removeProduct(product);
+    })
+    .then(() => {
+      res.redirect('/cart');
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
