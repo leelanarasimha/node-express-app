@@ -1,12 +1,39 @@
 const { addProductToCart, getCartDetailsFromFile, deleteProductFromCart } = require('../models/Cart');
 const { getProductById, fetchAllProducts } = require('../models/Product');
+const Product = require('../models/ProductModel');
 
 exports.postCartPage = (req, res) => {
   const productId = req.body.productId;
-  getProductById(productId, (product) => {
-    addProductToCart(productId, product.price);
-    res.redirect('/');
-  });
+  let newQuantity = 1;
+  let fetchedCart;
+  req.user
+    .getCart()
+    .then((cart) => {
+      if (!cart) {
+        return req.user.createCart();
+      }
+      return cart;
+    })
+    .then((cart) => {
+      fetchedCart = cart;
+      return cart.getProducts({ where: { id: productId } });
+    })
+    .then((products) => {
+      if (products.length) {
+        newQuantity = products[0].cartItem.quantity + 1;
+        return products[0];
+      }
+      return Product.findByPk(productId);
+    })
+    .then((product) => {
+      return fetchedCart.addProduct(product, { through: { quantity: newQuantity } });
+    })
+    .then(() => {
+      res.redirect('/');
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 };
 
 exports.getCartPage = (req, res) => {
