@@ -1,8 +1,12 @@
+const Product = require('../models/ProductModel');
+
 exports.postOrderPage = (req, res) => {
   let productsObj;
+  let fetchedCart;
   req.user
     .getCart()
     .then((cart) => {
+      fetchedCart = cart;
       return cart.getProducts();
     })
     .then((products) => {
@@ -17,6 +21,23 @@ exports.postOrderPage = (req, res) => {
       return order.addProducts(productsData);
     })
     .then(() => {
-      res.redirect('/order');
+      return fetchedCart.setProducts(null);
+    })
+    .then(() => {
+      res.redirect('/orders');
+    })
+    .catch((error) => {
+      console.log(error);
     });
+};
+
+exports.getOrdersPage = (req, res) => {
+  req.user.getOrders({ include: Product }).then((orders) => {
+    const viewsData = {
+      orders,
+      pageTitle: 'Orer Details'
+    };
+
+    res.render('OrderDetailsPage', viewsData);
+  });
 };

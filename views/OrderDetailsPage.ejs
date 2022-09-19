@@ -1,0 +1,23 @@
+<%- include('includes/head.ejs') %>
+  </head>
+  <body>
+    <%- include('includes/navigation.ejs') %>
+    <main>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Order Details</h1>
+
+                    <% for(let order of orders) { %>
+                    <div>Order Id: <%= order.id %></div>
+                    <ul>
+                        <% for (let product of order.products) { %>
+                        <li><%= product.title %> -  <%= product.orderItem.quantity %></li>
+                        <% } %>
+                    </ul>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </main>
+    <%- include('includes/footer.ejs') %>
